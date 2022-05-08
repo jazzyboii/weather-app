@@ -1,26 +1,19 @@
 import React from 'react';
-import {Grid} from '@mui/material';
 import "./App.css";
-import Address  from './Address';
-import Header  from './Header';
-import {BrowserRouter as Router, Route,Switch} from "react-router-dom";
+import Homepage  from './Pages/Homepage.js';
+import Weatherpage  from '/Users/davidvincent/Desktop/weather-app/weather-app/weather-app/src/Pages/Weatherpage.js';
+import {BrowserRouter as Router, Route,Routes} from "react-router-dom";
 //import { styled } from '@mui/material/styles';
 //style={{justifyContent: 'center'}}
 
 function App() {
     return (
-      <>
-       <Grid container 
-        justify="center" 
-        alignItems="center" 
-        direction="column" 
-        spacing={5}
-        style={{marginBottom: "1em"}}
-      >
-        <Header/>
-        <Address/>          
-       </Grid>           
-      </>
+      <Router> 
+        <Routes>
+          <Route path="/Homepage" element={<Homepage/>}/>
+          <Route path="/Weatherpage" element={<Weatherpage/>}/> 
+        </Routes>      
+      </Router>
     );
 }
 

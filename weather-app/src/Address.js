@@ -1,6 +1,6 @@
 import React from "react";
 import {Box,Card,CardActions,CardContent,Button,TextField,Grid} from '@mui/material';
-
+import {useHistory} from "react-router-dom";
 
 class Address extends React.Component{
    constructor(props){
@@ -13,10 +13,6 @@ class Address extends React.Component{
            currentLocation: false
        }
    }
-//    handleClick(event){
-//        this.setState({ [event.target.name]: event.target.value })
-//        console.log(this.state)
-//    }
    componentDidMount = () => {
        if(this.state.currentLocation){
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -79,7 +75,7 @@ class Address extends React.Component{
                     </Card>
                 </Grid>
                 <Box textAlign='center'>
-                    <Button variant='contained' onClick={this.componentDidMount}>
+                    <Button variant='contained' /*onClick={() =>{history.push('./placeholder')}}*/>
                         Submit
                     </Button>
                 </Box> 
