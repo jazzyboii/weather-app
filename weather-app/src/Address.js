@@ -9,19 +9,27 @@ class Address extends React.Component{
            city: "",
            state: "",
            country: "",
-           zipcode: ""
+           zipcode: "",
+           currentLocation: false
        }
    }
-   handleClick(event){
-       this.setState({ [event.target.name]: event.target.value })
-       console.log(this.state)
-   }
-   componentDidMount() {
-       navigator.geolocation.getCurrentPosition(function(position) {
-            console.log("Latitude is :", position.coords.latitude);
-            console.log("Longitude is :", position.coords.longitude);
-       });
-    } 
+//    handleClick(event){
+//        this.setState({ [event.target.name]: event.target.value })
+//        console.log(this.state)
+//    }
+   componentDidMount = () => {
+       if(this.state.currentLocation){
+            navigator.geolocation.getCurrentPosition(function(position) {
+                console.log("Latitude is :", position.coords.latitude);
+                console.log("Longitude is :", position.coords.longitude);
+            });
+       }else{
+            this.setState({
+                currentLocation: true
+            });
+       }
+   } 
+
    render(){
         return (
             <>
@@ -55,7 +63,7 @@ class Address extends React.Component{
                             />        
                         </CardContent>
                         <CardActions >
-                            <Button size="medium">Current Location</Button>
+                            <Button size="medium" onClick={this.componentDidMount}>Current Location</Button>
                         </CardActions>
                     </Card> 
                     <Card sx={{ minWidth: 275 }} variant="outlined">
