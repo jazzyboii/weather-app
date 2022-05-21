@@ -1,6 +1,6 @@
 import React from "react";
 import {Box,Card,CardActions,CardContent,Button,TextField,Grid} from '@mui/material';
-import {useHistory} from "react-router-dom";
+//import {useHistory} from "react-router-dom";
 
 class Address extends React.Component{
    constructor(props){
@@ -33,13 +33,12 @@ class Address extends React.Component{
                     <Card sx={{ minWidth: 275 }} style={{marginBottom: "2em"}} variant="outlined">
                         <CardContent>
                             <TextField 
-                                cityvariant="outlined" 
+                                variant="outlined" 
                                 label="City" 
                                 fullWidth 
                                 style={{marginBottom: "2em"}}
                                 value={this.state.city}
                                 onChange={(e) => this.setState({city : e.target.value})}
-                                
                             />  
                             <TextField 
                                 variant="outlined" 
@@ -75,7 +74,7 @@ class Address extends React.Component{
                     </Card>
                 </Grid>
                 <Box textAlign='center'>
-                    <Button variant='contained' /*onClick={() =>{history.push('./placeholder')}}*/>
+                    <Button variant='contained' onClick={event =>  window.location.href='/Weatherpage'}>
                         Submit
                     </Button>
                 </Box> 
