@@ -25,6 +25,10 @@ class Address extends React.Component{
             });
        }
    } 
+   
+   submitLocation(){
+        console.log(this.state.city + "," + this.state.state + "," + this.state.country + "," + this.state.zipcode)
+   }
 
    render(){
         return (
@@ -74,7 +78,7 @@ class Address extends React.Component{
                     </Card>
                 </Grid>
                 <Box textAlign='center'>
-                    <Button variant='contained' onClick={event =>  window.location.href='/Weatherpage'}>
+                    <Button variant='contained' onClick={() =>  {window.location.href='/Weatherpage';this.submitLocation()}}>
                         Submit
                     </Button>
                 </Box> 
