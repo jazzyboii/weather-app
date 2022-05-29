@@ -41,10 +41,10 @@ const BasicProfile = props => {
   const styles = useBasicProfileStyles();
   return (
     <Row {...props}>
-      <Item><Avatar className={styles.avatar}>S</Avatar></Item>
+      <Item><Avatar className={styles.avatar}>J</Avatar></Item>
       <Item position={'middle'} pl={{ sm: 0.5, lg: 0.5 }}>
-        <Typography className={styles.overline}>CREATOR</Typography>
-        <Typography className={styles.name}>siriwatknp</Typography>
+        <Typography className={styles.overline}>Author</Typography>
+        <Typography className={styles.name}>John Doe</Typography>
       </Item>
     </Row>
   );
@@ -59,6 +59,7 @@ const useCardHeaderStyles = makeStyles(() => ({
   subheader: {
     fontSize: '0.875rem',
     color: '#495869',
+    wordWrap: "break-word"
   },
 }));
 
@@ -66,13 +67,15 @@ const CardHeader = props => {
   const styles = useCardHeaderStyles();
   const iconBtnStyles = useSizedIconButtonStyles({ padding: 8, childSize: 20 });
   return (
-    <Row {...props}>
-      <Item position={'middle'}>
+    <Row >
+      <Item >
         <Typography className={styles.title}>
-          <b>Firebase</b>
+          <b>Headline</b>
         </Typography>
         <Typography className={styles.subheader}>
-          Similar to firebase theme
+          Description of news Articlenbjnkjlphmkojihubgvyftdrtcfyui       This is some text that should be wrapped. Lorem ipsum dolor sit amet,
+        consectetur adipisicing elit. Fugit magnam omnis eius ad quam ipsam
+        dolorum iure itaque placeat fugiat animi jooiuytu890
         </Typography>
       </Item>
       <Item position={'right'} mr={-0.5}>
@@ -100,30 +103,23 @@ const useStyles = makeStyles(() => ({
 
 export const ShowcaseCardDemo = React.memo(function ShowcaseCard() {
   const styles = useStyles();
-  const gap = { xs: 1, sm: 1.5, lg: 2 }
+  const gap = { xs: 1, sm:1, lg: 1 }
   return (
-    <Grid container spacing={4} justify={'center'}>
-      <Grid item xs={12} sm={4} md={3}>
-        <Column className={styles.card} p={{ xs: 0.5, sm: 0.75, lg: 1 }} gap={gap}>
-          <CardHeader />
-          <Item>
+      <Grid item xs={12} sm={8} lg={7}>
+        <Row className={styles.card} p={{ xs: 0.5, sm: 0.75, lg: 1 }} gap={1.5}>
+          <Item grow>
             <Box minHeight={200} bgcolor={'#F4F7FA'} borderRadius={8} />
           </Item>
-          <BasicProfile />
-        </Column>
-      </Grid>
-      <Grid item xs={12} sm={8} lg={7}>
-        <Row className={styles.card} p={{ xs: 0.5, sm: 0.75, lg: 0.2 }} gap={gap}>
-          <Item grow>
-            <Box minHeight={200} maxWidth={200}bgcolor={'#F4F7FA'} borderRadius={8} />
-          </Item>
-          <Column>
-            <CardHeader />
-            <BasicProfile position={'bottom'} />
+          <Column gap>
+            <Box maxWidth={400}>
+              <CardHeader />
+           </Box>
+              <BasicProfile position={'bottom'} />              
+           
+
           </Column>
         </Row>
       </Grid>
-    </Grid>
   );
 });
 export default ShowcaseCardDemo
