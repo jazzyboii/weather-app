@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import {API_KEY, API_BASE_URL} from '../apis/config'
+import CardLayout from "/Users/davidvincent/Desktop/weather-app/weather-app/weather-app/src/CardLayout.js";
 import {Card,Divider,CardActions,CardContent,Button,Grid,Box,AppBar,Typography,Toolbar,CssBaseline} from '@mui/material';
 //import Carousel from 'react-bootstrap/Carousel'
 //import Address  from '/Users/davidvincent/Desktop/weather-app/weather-app/weather-app/src/Address.js';
@@ -27,13 +29,13 @@ function WeatherPage() {
         slidesToSlide: 3
       },
       tablet: {
-        breakpoint: { max: 1024, min: 464 },
+        breakpoint: { max: 1024, min: 720 },
         items: 3,
         slidesToSlide: 2
       },
       mobile: {
-        breakpoint: { max: 464, min: 0 },
-        items: 2,
+        breakpoint: { max: 720, min: 0 },
+        items: 1,
         slidesToSlide: 1
       }
     };
@@ -48,12 +50,12 @@ function WeatherPage() {
     );
     
   const axiosGet = () => {
-    axios.get("https://api.openweathermap.org/data/2.5/onecall?lat=38.0401&lon=-78.4851&exclude=minutely&appid=2e086449f3da526a434e08be786f79ac")
+    axios.get(`${API_BASE_URL}/data/2.5/onecall?lat=38.0401&lon=-78.4851&exclude=minutely&units=imperial&appid=${API_KEY}`)
     .then(data => setData(data.data))
   }
 
 
-    if(!data){
+    if(!data.hourly){
       return (
          <h1>Loading...</h1>
       );
@@ -61,7 +63,7 @@ function WeatherPage() {
       return (
         <>
           <CssBaseline/>
-            <AppBar position="sticky">
+            <AppBar elevation={0} position="sticky">
               <Toolbar>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                   Weather App
@@ -74,104 +76,31 @@ function WeatherPage() {
                 showDots={false}
                 responsive={responsive}
                 ssr={true} // means to render carousel on server-side.
-                infinite={true}
+                infinite={false}
                 keyBoardControl={true}
                 customTransition="all .5"
-                transitionDuration={500}
+                transitionDuration={0}
                 containerClass="carousel-container"
-                removeArrowOnDeviceType={["tablet", "mobile"]}
+                 
                 dotListClass="custom-dot-list-style"
                 itemClass="carousel-item-padding-40-px"
                 slidesToSlide={2}
                 sliderClass=""            
-              >
-                <Card variant="outlined" sx={{ minWidth: 150,m: "1rem" }}>
-                  <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Card Uno
-                    </Typography>
-                    <Typography variant="h5" component="div">
-                      be{bull}nev{bull}o{bull}lent
-                    </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                      adjective
-                    </Typography>
-                    <Typography variant="body2">
-                      well meaning and kindly.
-                      <br />
-                      {'"a benevolent smile"'}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">Learn More</Button>
-                  </CardActions>
-                </Card>
-                <Card variant="outlined" sx={{ minWidth: 150,m: "1rem" }}>
-                  <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                      Card Dos
-                    </Typography>
-                    <Typography variant="h5" component="div">
-                      be{bull}nev{bull}o{bull}lent
-                    </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                      adjective
-                    </Typography>
-                    <Typography variant="body2">
-                      well meaning and kindly.
-                      <br />
-                      {'"a benevolent smile"'}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">Learn More</Button>
-                  </CardActions>
-                </Card>
-                <Card variant="outlined" sx={{ minWidth: 150,m: "1rem" }}>
-                  <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                      Card Tres
-                    </Typography>
-                    <Typography variant="h5" component="div">
-                      be{bull}nev{bull}o{bull}lent
-                    </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                      adjective
-                    </Typography>
-                    <Typography variant="body2">
-                      well meaning and kindly.
-                      <br />
-                      {'"a benevolent smile"'}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">Learn More</Button>
-                  </CardActions>
-                </Card>
-                <Card variant="outlined" sx={{ minWidth: 150,m: "1rem" }}>
-                  <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                      Card Cuatro
-                    </Typography>
-                    <Typography variant="h5" component="div">
-                      be{bull}nev{bull}o{bull}lent
-                    </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                      adjective
-                    </Typography>
-                    <Typography variant="body2">
-                      well meaning and kindly.
-                      <br />
-                      {'"a benevolent smile"'}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">Learn More</Button>
-                  </CardActions>
-                </Card>
+              >     
+                {data.hourly.map(({dt,temp,feels_like, main, weather}) => (
+                  <div key={dt}>
+                      <CardLayout
+                        time={dt}
+                        temp={temp}
+                        feel={feels_like}
+                        iconCode={weather[0].icon}
+                        description={weather[0].description}
+                      />
+                  </div>
+                ))} 
               </Carousel>  
-              <Divider/>
-                <Button variant="outlined" sx={{my: "10px", ml: "10px"}}>Weekly</Button>
+              <Divider sx={{color:"blue"}}/>
+                <Button variant="outlined" sx={{my: "10px", ml: "10px"}}>Current</Button>
                 <Button variant="outlined" sx={{my: "10px", ml: "10px"}}>daily</Button>
                 <Button variant="outlined" sx={{my: "10px", ml: "10px"}}>hourly</Button>
               <Divider/> 
