@@ -10,6 +10,7 @@ import {Card,Divider,CardActions,CardContent,Button,Grid,Box,AppBar,Typography,T
 import axios from 'axios';
 //mport { makeStyles } from '@material-ui/core/styles';
 import SimpleDateTime  from 'react-simple-timestamp-to-date';
+import ShowcaseCardDemo from '../ShowcaseCardDemo';
 
 function WeatherPage() {
   const [data, setData] = React.useState([]);
@@ -104,9 +105,10 @@ function WeatherPage() {
                 <Button variant="outlined" sx={{my: "10px", ml: "10px"}}>daily</Button>
                 <Button variant="outlined" sx={{my: "10px", ml: "10px"}}>hourly</Button>
               <Divider/> 
-              <Typography variant="h3" sx={{my: "10px"}} align="center">
+              <Typography variant="h3" sx={{my: "10px", ml:"10px"}} >
                  News
-              </Typography>      
+              </Typography>   
+              <ShowcaseCardDemo/>   
         </>          
     );
     }
